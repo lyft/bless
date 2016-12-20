@@ -111,6 +111,9 @@ def get_hostnames(service_name, service_instance, service_region, instance_id,
     hostname_prefixes.append('{service_name}-{az_letter}'.format(
         service_name=service_name,
         az_letter=az_shortened))
+    hostname_prefixes.append('{service_name}-{service_region}'.format(
+        service_name=service_name,
+        service_region=service_region))
     hostname_prefixes.append('{service_name}-{service_instance}'.format(
         service_name=service_name,
         service_instance=service_instance))
@@ -124,6 +127,8 @@ def get_hostnames(service_name, service_instance, service_region, instance_id,
             onebox_name=onebox_name))
 
     hostname_suffixes = ['.lyft.net', '.ln']
+    if service_name == 'gateway':
+        hostname_suffixes.append('lyft.com')
     hostnames = []
     for prefix in hostname_prefixes:
         for suffix in hostname_suffixes:

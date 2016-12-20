@@ -49,6 +49,7 @@ def get_role_name(instance_id, aws_region='us-east-1'):
     ec2_resource = boto3.resource(
         'ec2',
         region_name=aws_region,
+        api_version='2016-11-15',
         aws_access_key_id=credentials['AccessKeyId'],
         aws_secret_access_key=credentials['SecretAccessKey'],
         aws_session_token=credentials['SessionToken']

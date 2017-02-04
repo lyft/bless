@@ -47,7 +47,7 @@ def main(argv):
         return -1
 
     region, lambda_function_name, bastion_user, bastion_user_ip, remote_username, bastion_ip, \
-    bastion_command, public_key_filename, certificate_filename = argv
+    bastion_command, public_key_filename, certificate_filename = argv[0:9]
 
     with open(public_key_filename, 'r') as f:
         public_key = f.read()

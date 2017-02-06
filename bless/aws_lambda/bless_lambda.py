@@ -14,7 +14,7 @@ import kmsauth
 from bless.config.bless_config import BlessConfig, BLESS_OPTIONS_SECTION, \
     CERTIFICATE_VALIDITY_WINDOW_SEC_OPTION, ENTROPY_MINIMUM_BITS_OPTION, RANDOM_SEED_BYTES_OPTION, \
     BLESS_CA_SECTION, CA_PRIVATE_KEY_FILE_OPTION, LOGGING_LEVEL_OPTION, CERTIFICATE_TYPE_OPTION, \
-    KMSAUTH_KEY_ID_OPTION, KMSAUTH_CONTEXT_OPTION
+    KMSAUTH_KEY_ID_OPTION, KMSAUTH_CONTEXT_OPTION, CROSS_ACCOUNT_ROLE_ARN_OPTION
 from bless.request.bless_request import BlessUserSchema, BlessHostSchema
 from bless.ssh.certificate_authorities.ssh_certificate_authority_factory import \
     get_ssh_certificate_authority
@@ -39,11 +39,11 @@ def get_role_name_from_request(request):
             request.service_region)
 
 
-def get_role_name(instance_id, aws_region='us-east-1'):
+def get_role_name(instance_id, aws_region='us-east-1', cross_account_role_arn):
     sts_client = boto3.client('sts')
     assumed_role_object = sts_client.assume_role(
-        RoleArn='arn:aws:iam::173840052742:role/bless-host-execution',
-        RoleSessionName='ZimrideAssumedRoleSession'
+        RoleArn=cross_account_role_arn,
+        RoleSessionName='AssumedRoleSession'
     )
     credentials = assumed_role_object['Credentials']
     ec2_resource = boto3.resource(
@@ -74,9 +74,9 @@ def get_role_name(instance_id, aws_region='us-east-1'):
     return role
 
 
-def validate_instance_id(instance_id, request):
+def validate_instance_id(instance_id, request, cross_account_role_arn):
     aws_region = REGIONS.get(request.service_region, 'us-east-1')
-    role = get_role_name(instance_id, aws_region)
+    role = get_role_name(instance_id, aws_region, cross_account_role_arn)
     try:
         role_split = role.split('-')
         role_service_name = role_split[0]
@@ -183,6 +183,7 @@ def lambda_handler(event, context=None, ca_private_key_password=None,
                                                         CERTIFICATE_VALIDITY_WINDOW_SEC_OPTION)
     entropy_minimum_bits = config.getint(BLESS_OPTIONS_SECTION, ENTROPY_MINIMUM_BITS_OPTION)
     random_seed_bytes = config.getint(BLESS_OPTIONS_SECTION, RANDOM_SEED_BYTES_OPTION)
+    cross_account_role_arn = config.get(BLESS_OPTIONS_SECTION, CROSS_ACCOUNT_ROLE_ARN_OPTION)
     ca_private_key_file = config.get(BLESS_CA_SECTION, CA_PRIVATE_KEY_FILE_OPTION)
     password_ciphertext_b64 = config.getpassword()
     kmsauth_key_id = config.get(BLESS_CA_SECTION, KMSAUTH_KEY_ID_OPTION)
@@ -255,7 +256,7 @@ def lambda_handler(event, context=None, ca_private_key_password=None,
             time.strftime("%Y/%m/%d %H:%M:%S", time.gmtime(valid_before)))
         cert_builder.set_critical_option_source_address(request.bastion_ip)
     elif certificate_type == SSHCertificateType.HOST:
-        if not validate_instance_id(request.instance_id, request):
+        if not validate_instance_id(request.instance_id, request, cross_account_role_arn):
             raise Exception("Instance id is not validated")
         remote_hostnames = get_hostnames(request.service_name,
                                          request.service_instance,

@@ -39,7 +39,7 @@ def get_role_name_from_request(request):
             request.service_region)
 
 
-def get_role_name(instance_id, aws_region='us-east-1', cross_account_role_arn):
+def get_role_name(instance_id, cross_account_role_arn, aws_region='us-east-1'):
     sts_client = boto3.client('sts')
     assumed_role_object = sts_client.assume_role(
         RoleArn=cross_account_role_arn,
@@ -76,7 +76,7 @@ def get_role_name(instance_id, aws_region='us-east-1', cross_account_role_arn):
 
 def validate_instance_id(instance_id, request, cross_account_role_arn):
     aws_region = REGIONS.get(request.service_region, 'us-east-1')
-    role = get_role_name(instance_id, aws_region, cross_account_role_arn)
+    role = get_role_name(instance_id, cross_account_role_arn, aws_region)
     try:
         role_split = role.split('-')
         role_service_name = role_split[0]

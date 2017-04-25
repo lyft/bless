@@ -124,7 +124,9 @@ def get_hostnames(service_name, service_instance, service_region, instance_id,
         hostname_prefixes.append('{cluster_name}-canary'.format(
             cluster_name=cluster_name))
     if onebox_name:
-        hostname_prefixes.append('{onebox_name}.onebox'.format(
+        hostname_prefixes.append('{onebox_name}-onebox.dev'.format(
+            onebox_name=onebox_name))
+        hostname_prefixes.append('*-{onebox_name}-onebox.dev'.format(
             onebox_name=onebox_name))
 
     hostname_suffixes = ['.lyft.net', '.ln']

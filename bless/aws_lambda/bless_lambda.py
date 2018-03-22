@@ -97,16 +97,17 @@ def validate_instance_id(instance_id, request, cross_account_role_arn):
 
 def get_hostnames(service_name, service_instance, service_region, instance_id,
                   availability_zone, onebox_name, is_canary):
-    # strip 'i' in 'i-12345'
-    instance_id_stripped = instance_id.split('-')[1]
     cluster_name = '{0}-{1}-{2}'.format(
         service_name, service_instance, service_region)
     az_split = availability_zone.split('-')
     az_shortened = az_split[2][-1]  # last letter of 3rd block of az
 
     hostname_prefixes = []
-    hostname_prefixes.append(instance_id)
-    hostname_prefixes.append(instance_id_stripped)
+    if instance_id:
+        # strip 'i' in 'i-12345'
+        instance_id_stripped = instance_id.split('-')[1]
+        hostname_prefixes.append(instance_id)
+        hostname_prefixes.append(instance_id_stripped)
     hostname_prefixes.append(cluster_name)
     hostname_prefixes.append(service_name)
     hostname_prefixes.append('{service_name}-{az_letter}'.format(
@@ -257,7 +258,7 @@ def lambda_handler(event, context=None, ca_private_key_password=None,
         cert_builder.set_critical_option_source_address(request.bastion_ip)
     elif certificate_type == SSHCertificateType.HOST:
         if not validate_instance_id(request.instance_id, request, cross_account_role_arn):
-            raise Exception("Instance id is not validated")
+            request.instance_id = None
         remote_hostnames = get_hostnames(request.service_name,
                                          request.service_instance,
                                          request.service_region,

@@ -20,7 +20,7 @@ from bless.config.bless_config import BLESS_OPTIONS_SECTION, \
 from bless.config.bless_lyft_config import CERTIFICATE_VALIDITY_WINDOW_SEC_OPTION, CERTIFICATE_TYPE_OPTION,\
     KMSAUTH_CONTEXT_OPTION, CROSS_ACCOUNT_ROLE_ARN_OPTION
 from bless.config.bless_lyft_config import LyftBlessConfig
-from bless.request.bless_request_host import BlessHostSchema
+from bless.request.bless_request_lyft_host import BlessLyftHostSchema
 from bless.request.bless_request_user import BlessUserSchema
 from bless.ssh.certificate_authorities.ssh_certificate_authority_factory import \
     get_ssh_certificate_authority
@@ -227,7 +227,7 @@ def lambda_lyft_host_handler(
 
     # Process cert request
     if certificate_type == SSHCertificateType.HOST:
-        schema = BlessHostSchema(strict=True)
+        schema = BlessLyftHostSchema(strict=True)
     else:
         schema = BlessUserSchema(strict=True)
     request = schema.load(event).data

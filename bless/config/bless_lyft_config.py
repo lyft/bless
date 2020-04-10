@@ -5,7 +5,7 @@
 """
 import configparser
 
-from bless.config.bless_config import BlessConfig, BLESS_OPTIONS_SECTION
+from bless.config.bless_config import BLESS_OPTIONS_SECTION
 
 CERTIFICATE_VALIDITY_WINDOW_SEC_OPTION = 'certificate_validity_seconds'
 CERTIFICATE_VALIDITY_SEC_DEFAULT = 60 * 2
@@ -38,7 +38,7 @@ KMSAUTH_CONTEXT_DEFAULT = None
 REGION_PASSWORD_OPTION_SUFFIX = '_password'
 
 
-class LyftBlessConfig(BlessConfig):
+class LyftBlessConfig(configparser.RawConfigParser, object):
     def __init__(self, aws_region, config_file):
         """
         Parses the BLESS config file, and provides some reasonable default values if they are

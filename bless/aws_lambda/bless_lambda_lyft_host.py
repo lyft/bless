@@ -11,6 +11,8 @@ import boto3
 import botocore
 import os
 import kmsauth
+
+from bless.aws_lambda.bless_lambda_common import setup_lambda_cache
 from bless.config.bless_config import BLESS_OPTIONS_SECTION, \
     ENTROPY_MINIMUM_BITS_OPTION, RANDOM_SEED_BYTES_OPTION, \
     BLESS_CA_SECTION, CA_PRIVATE_KEY_FILE_OPTION, LOGGING_LEVEL_OPTION, \
@@ -158,7 +160,7 @@ def lambda_lyft_host_handler(
         context=None,
         ca_private_key_password=None,
         entropy_check=True,
-        config_file=os.path.join(os.path.dirname(__file__), 'bless_deploy.cfg')):
+        config_file=None):
     """
     This is the function that will be called when the lambda function starts.
     :param event: Dictionary of the json request.
@@ -175,6 +177,7 @@ def lambda_lyft_host_handler(
     region = os.environ['AWS_REGION']
 
     # Load the deployment config values
+    config_file = os.path.join(os.getcwd(), 'bless_deploy.cfg')
     config = LyftBlessConfig(region, config_file=config_file)
 
     certificate_type = get_certificate_type(config.get(BLESS_OPTIONS_SECTION, CERTIFICATE_TYPE_OPTION))

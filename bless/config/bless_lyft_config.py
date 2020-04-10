@@ -63,6 +63,9 @@ class LyftBlessConfig(configparser.RawConfigParser, object):
         if not self.has_section(BLESS_OPTIONS_SECTION):
             self.add_section(BLESS_OPTIONS_SECTION)
 
+        if not self.has_section(BLESS_CA_SECTION):
+            raise ValueError("Can't read config file at: " + config_file)
+
         if not self.has_option(BLESS_CA_SECTION, self.aws_region + REGION_PASSWORD_OPTION_SUFFIX):
             raise ValueError("No Region Specific Password Provided.")
 

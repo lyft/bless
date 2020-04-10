@@ -10,15 +10,6 @@ import re
 import zlib
 import bz2
 
-# TODO Migrate bless_lambda_lyft_host to stop using these items below, which are migrated from an old version
-CERTIFICATE_VALIDITY_WINDOW_SEC_OPTION = 'certificate_validity_seconds'
-CROSS_ACCOUNT_ROLE_ARN_OPTION = 'cross_account_role_arn'
-CROSS_ACCOUNT_ROLE_ARN_DEFAULT = None
-KMSAUTH_CONTEXT_OPTION = 'kmsauth_context'
-KMSAUTH_CONTEXT_DEFAULT = None
-CERTIFICATE_TYPE_OPTION = 'certificate_type'
-CERTIFICATE_TYPE_DEFAULT = 'user'
-
 BLESS_OPTIONS_SECTION = 'Bless Options'
 CERTIFICATE_VALIDITY_BEFORE_SEC_OPTION = 'certificate_validity_before_seconds'
 CERTIFICATE_VALIDITY_AFTER_SEC_OPTION = 'certificate_validity_after_seconds'

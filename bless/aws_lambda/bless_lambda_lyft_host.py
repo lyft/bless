@@ -200,7 +200,7 @@ def lambda_lyft_host_handler(
 
     # read the private key .pem
     with open(os.path.join(os.getcwd(), ca_private_key_file), 'r') as f:
-        ca_private_key = f.read()
+        ca_private_key = bytes(f.read(), 'ascii')
 
     # decrypt ca private key password
     if ca_private_key_password is None:

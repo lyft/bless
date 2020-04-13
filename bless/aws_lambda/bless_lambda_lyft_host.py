@@ -12,14 +12,13 @@ import botocore
 import os
 import kmsauth
 
-from bless.aws_lambda.bless_lambda_common import setup_lambda_cache
 from bless.config.bless_config import BLESS_OPTIONS_SECTION, \
     ENTROPY_MINIMUM_BITS_OPTION, RANDOM_SEED_BYTES_OPTION, \
     BLESS_CA_SECTION, CA_PRIVATE_KEY_FILE_OPTION, LOGGING_LEVEL_OPTION, \
     KMSAUTH_KEY_ID_OPTION
 from bless.config.bless_lyft_config import CERTIFICATE_VALIDITY_WINDOW_SEC_OPTION, CERTIFICATE_TYPE_OPTION,\
     KMSAUTH_CONTEXT_OPTION, CROSS_ACCOUNT_ROLE_ARN_OPTION
-from bless.config.bless_lyft_config import LyftBlessConfig
+from bless.config.bless_lyft_config import BlessLyftConfig
 from bless.request.bless_request_lyft_host import BlessLyftHostSchema
 from bless.request.bless_request_user import BlessUserSchema
 from bless.ssh.certificate_authorities.ssh_certificate_authority_factory import \
@@ -177,8 +176,9 @@ def lambda_lyft_host_handler(
     region = os.environ['AWS_REGION']
 
     # Load the deployment config values
-    config_file = os.path.join(os.getcwd(), 'bless_deploy.cfg')
-    config = LyftBlessConfig(region, config_file=config_file)
+    if config_file is None:
+        config_file = os.path.join(os.getcwd(), 'bless_deploy.cfg')
+    config = BlessLyftConfig(region, config_file=config_file)
 
     certificate_type = get_certificate_type(config.get(BLESS_OPTIONS_SECTION, CERTIFICATE_TYPE_OPTION))
     logging_level = config.get(BLESS_OPTIONS_SECTION, LOGGING_LEVEL_OPTION)

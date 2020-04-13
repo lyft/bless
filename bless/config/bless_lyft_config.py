@@ -38,7 +38,7 @@ KMSAUTH_CONTEXT_DEFAULT = None
 REGION_PASSWORD_OPTION_SUFFIX = '_password'
 
 
-class LyftBlessConfig(configparser.RawConfigParser, object):
+class BlessLyftConfig(configparser.RawConfigParser, object):
     def __init__(self, aws_region, config_file):
         """
         Parses the BLESS config file, and provides some reasonable default values if they are

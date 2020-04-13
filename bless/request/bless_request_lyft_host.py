@@ -8,7 +8,6 @@ import re
 from marshmallow import Schema, fields, post_load, ValidationError
 
 # man 8 useradd
-USERNAME_PATTERN = re.compile('[a-z_][a-z0-9_-]*[$]?\Z')
 HOSTNAME_PATTERN = re.compile('[a-z0-9_.-]+')
 
 
@@ -17,13 +16,6 @@ def validate_ip(ip):
         ipaddress.ip_address(ip)
     except ValueError:
         raise ValidationError('Invalid IP address.')
-
-
-def validate_user(user):
-    if len(user) > 32:
-        raise ValidationError('Username is too long')
-    if USERNAME_PATTERN.match(user) is None:
-        raise ValidationError('Username contains invalid characters')
 
 
 def validate_host(hostname):

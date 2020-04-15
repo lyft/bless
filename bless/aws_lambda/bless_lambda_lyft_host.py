@@ -219,6 +219,8 @@ def lambda_lyft_host_handler(
                     'System entropy was {}, which is lower than the entropy_'
                     'minimum {}.  Using KMS to seed /dev/urandom'.format(
                         entropy, entropy_minimum_bits))
+                if not kms_client:
+                    kms_client = boto3.client('kms', region_name=region)
                 response = kms_client.generate_random(
                     NumberOfBytes=random_seed_bytes)
                 random_seed = response['Plaintext']

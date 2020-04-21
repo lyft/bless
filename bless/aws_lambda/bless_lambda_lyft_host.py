@@ -64,16 +64,27 @@ def get_role_name(instance_id, cross_account_role_arn, aws_region='us-east-1'):
     try:
         role = instance.iam_instance_profile['Arn'].split('/')[1]
     except botocore.exceptions.ClientError:
-        logger.exception('Could not find instance {0}.'.format(instance_id))
+        logger.exception(
+            'Could not find instance {0}. '
+            'role: {1}, region: {2}'.format(instance_id,
+                                            cross_account_role_arn,
+                                            aws_region)
+        )
         role = None
     except IndexError:
         logger.error(
-            'Could not find the role associated with {0}.'.format(instance_id)
+            'Could not find the role associated with {0}. '
+            'role: {1}, region: {2}'.format(instance_id,
+                                            cross_account_role_arn,
+                                            aws_region)
         )
         role = None
     except Exception:
         logger.exception(
-            'Failed to lookup role for instance id {0}.'.format(instance_id)
+            'Failed to lookup role for instance id {0}. '
+            'role: {1}, region: {2}'.format(instance_id,
+                                            cross_account_role_arn,
+                                            aws_region)
         )
         role = None
     return role

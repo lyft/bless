@@ -105,7 +105,7 @@ def lambda_handler_user(
     else:
         valid_before = current_time + certificate_validity_after_seconds
         valid_after = current_time - certificate_validity_before_seconds
-        bypass_time_validity_check = False
+        bypass_time_validity_check = True
 
     # Authenticate the user with KMS, if key is setup
     if config.getboolean(KMSAUTH_SECTION, KMSAUTH_USEKMSAUTH_OPTION):

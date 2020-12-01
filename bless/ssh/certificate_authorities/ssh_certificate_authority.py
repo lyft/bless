@@ -5,6 +5,13 @@
 """
 from bless.ssh.protocol.ssh_protocol import pack_ssh_string
 
+'''
+SHA2 enhancement: implemention of rfc8332 section 3 rsa-sha2-512 to support SHA2 public key signing algorithm
+'''
+class SSHCertificateSignetureKeyType(object):
+    RSA = 'ssh-rsa'
+    RSA_SHA2 = 'rsa-sha2-512'
+    ED25519 = 'ssh-ed25519'
 
 class SSHCertificateAuthorityPrivateKeyType(object):
     RSA = '-----BEGIN RSA PRIVATE KEY-----\n'

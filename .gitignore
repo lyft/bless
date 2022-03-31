@@ -12,3 +12,4 @@ lambda_configs/
 .pytest_cache/
 .vscode/settings.json
 *env/
+.venv

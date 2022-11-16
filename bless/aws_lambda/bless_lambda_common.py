@@ -59,7 +59,7 @@ def check_entropy(config, logger):
                 NumberOfBytes=random_seed_bytes)
             random_seed = response['Plaintext']
             with open('/dev/urandom', 'w') as urandom:
-                urandom.write(random_seed)
+                urandom.write(random_seed.decode('utf-8'))
 
 
 def setup_lambda_cache(ca_private_key_password, config_file):

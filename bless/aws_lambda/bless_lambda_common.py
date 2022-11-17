@@ -6,6 +6,7 @@
 import logging
 import os
 
+import base64
 import boto3
 from bless.cache.bless_lambda_cache import BlessLambdaCache
 from bless.config.bless_config import BLESS_OPTIONS_SECTION, LOGGING_LEVEL_OPTION, ENTROPY_MINIMUM_BITS_OPTION, \
@@ -58,8 +59,9 @@ def check_entropy(config, logger):
             response = kms_client.generate_random(
                 NumberOfBytes=random_seed_bytes)
             random_seed = response['Plaintext']
+            random_seed_b64 = base64.b64encode(random_seed).decode('utf-8')
             with open('/dev/urandom', 'w') as urandom:
-                urandom.write(random_seed)
+                urandom.write(random_seed_b64)
 
 
 def setup_lambda_cache(ca_private_key_password, config_file):

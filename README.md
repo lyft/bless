@@ -56,7 +56,7 @@ the expected locations.
 
 ### Compiling BLESS Lambda Dependencies
 AWS Lambda has some limitations, and to deploy code as a Lambda Function, you need to package up
-all of the dependencies.  AWS Lambda only supports Python 2.7 and BLESS depends on
+all of the dependencies.  AWS Lambda supports Python 3.12 and BLESS depends on
 [Cryptography](https://cryptography.io/en/latest/), which must be compiled.  You will need to
 compile and include your dependencies before you can publish a working AWS Lambda.
 
@@ -74,8 +74,8 @@ $ source venv/bin/activate
 ```
 - From that instance, copy off the contents of:
 ```
-$ cp -r venv/lib/python2.7/site-packages/. aws_lambda_libs
-$ cp -r venv/lib64/python2.7/site-packages/. aws_lambda_libs
+$ cp -r venv/lib/python3.10/site-packages/. aws_lambda_libs
+$ cp -r venv/lib64/python3.10/site-packages/. aws_lambda_libs
 ```
 - put those files in: ./aws_lambda_libs/
 

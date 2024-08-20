@@ -6,7 +6,7 @@ addons:
 
 matrix:
   include:
-    - python: "2.7"
+    - python: "3.10"
 
 install:
   - make develop
@@ -18,4 +18,4 @@ script:
 
 notifications:
   email:
-    russelll@netflix.com
+    security-foundations@lyft.com

@@ -29,13 +29,13 @@ class BlessHostSchema(Schema):
     public_key_to_sign = fields.Str(validate=validate_ssh_public_key, required=True)
 
     @validates_schema(pass_original=True)
-    def check_unknown_fields(self, data, original_data):
+    def check_unknown_fields(self, data, original_data, **kwargs):
         unknown = set(original_data) - set(self.fields)
         if unknown:
             raise ValidationError('Unknown field', unknown)
 
     @post_load
-    def make_bless_request(self, data):
+    def make_bless_request(self, data, **kwargs):
         return BlessHostRequest(**data)
 
     @validates('hostnames')

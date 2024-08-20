@@ -65,7 +65,7 @@ def lambda_handler_user(
     certificate_extensions = config.get(BLESS_OPTIONS_SECTION, CERTIFICATE_EXTENSIONS_OPTION)
 
     # Process cert request
-    schema = BlessUserSchema(strict=True)
+    schema = BlessUserSchema()
     schema.context[USERNAME_VALIDATION_OPTION] = config.get(BLESS_OPTIONS_SECTION, USERNAME_VALIDATION_OPTION)
     schema.context[REMOTE_USERNAMES_VALIDATION_OPTION] = config.get(BLESS_OPTIONS_SECTION,
                                                                     REMOTE_USERNAMES_VALIDATION_OPTION)
@@ -73,7 +73,7 @@ def lambda_handler_user(
                                                                    REMOTE_USERNAMES_BLACKLIST_OPTION)
 
     try:
-        request = schema.load(event).data
+        request = schema.load(event)
     except ValidationError as e:
         return error_response('InputValidationError', str(e))
 

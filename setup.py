@@ -18,33 +18,33 @@ setup(
     license=about["__license__"],
     packages=find_packages(exclude=["test*"]),
     install_requires=[
-        'boto3==1.4.2',
-        'botocore==1.4.85',
-        'cffi==1.7.0',
-        'cryptography==2.3',
-        'docutils==0.12',
+        'boto3==1.29.0',
+        'botocore==1.32.0',
+        'cffi==1.17.0',
+        'cryptography==43.0.0',
+        'docutils==0.15.2',
         'enum34==1.1.6',
         'futures==3.0.5',
         'idna==2.1',
-        'ipaddress==1.0.16',
-        'jmespath==0.9.0',
-        'marshmallow==2.15.1',
+        'ipaddress==1.0.23',
+        'jmespath==0.10.0',
+        'marshmallow==3.21.2',
         'pyasn1==0.1.9',
-        'pycparser==2.14',
-        'python-dateutil==2.5.3',
-        'six==1.10.0',
-        'kmsauth==0.1.4'
+        'pycparser==2.19',
+        'python-dateutil==2.8.0',
+        'six==1.12.0',
+        'kmsauth==0.6.3'
     ],
     extras_require={
         'tests': [
-            'coverage==4.1',
-            'flake8==2.6.2',
-            'mccabe==0.5.0',
-            'pep8==1.7.0',
-            'py==1.4.31',
-            'pyflakes==1.2.3',
-            'pytest==2.9.2',
-            'pytest-mock==1.2'
+            'coverage',
+            'flake8',
+            'mccabe',
+            'pep8',
+            'py',
+            'pyflakes',
+            'pytest',
+            'pytest-mock'
         ]
     }
 )

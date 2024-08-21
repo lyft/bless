@@ -28,7 +28,7 @@ setup(
         'idna>=2.1',
         'ipaddress==1.0.23',
         'jmespath==0.10.0',
-        'marshmallow==3.21.2',
+        'marshmallow==2.19.2',
         'pyasn1>=0.1.9',
         'pycparser==2.19',
         'python-dateutil==2.8.0',

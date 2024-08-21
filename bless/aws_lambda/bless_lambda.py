@@ -219,9 +219,9 @@ def lambda_handler(event, context=None, ca_private_key_password=None,
 
     # Process cert request
     if certificate_type == SSHCertificateType.HOST:
-        schema = BlessHostSchema(strict=True)
+        schema = BlessHostSchema()
     else:
-        schema = BlessUserSchema(strict=True)
+        schema = BlessUserSchema()
     request = schema.load(event).data
 
     # cert values determined only by lambda and its configs

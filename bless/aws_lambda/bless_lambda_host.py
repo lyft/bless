@@ -47,7 +47,7 @@ def lambda_handler_host(
     ca_private_key = config.getprivatekey()
 
     # Process cert request
-    schema = BlessHostSchema(strict=True)
+    schema = BlessHostSchema()
     schema.context[HOSTNAME_VALIDATION_OPTION] = config.get(BLESS_OPTIONS_SECTION, HOSTNAME_VALIDATION_OPTION)
 
     try:

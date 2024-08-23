@@ -31,6 +31,7 @@ class BlessHostSchema(Schema):
     @validates_schema(pass_original=True)
     def check_unknown_fields(self, data, original_data):
         unknown = set(original_data) - set(self.fields)
+        unknown.discard('partial') # Remove partial from unknown set if it exists. This is because the newer versions of marshmallow alreays returns a partial field.
         if unknown:
             raise ValidationError('Unknown field', unknown)
 

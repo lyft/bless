@@ -73,7 +73,7 @@ def lambda_handler_user(
                                                                    REMOTE_USERNAMES_BLACKLIST_OPTION)
 
     try:
-        request = schema.load(event).data
+        request = schema.load(event)
     except ValidationError as e:
         return error_response('InputValidationError', str(e))
 

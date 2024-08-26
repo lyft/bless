@@ -99,9 +99,6 @@ class BlessUserSchema(Schema):
 
     @post_load
     def make_bless_request(self, data, **kwargs):
-        print("-----------------------------------------------")
-        print(data)
-        print("-----------------------------------------------")
         return BlessUserRequest(**data)
 
     @validates('bastion_user')

@@ -2,7 +2,7 @@
 attrs==21.1.0
 boto3==1.26.115
 botocore==1.29.115
-cffi==1.17.0
+cffi==1.15.0
 coverage==6.0
 cryptography==3.4.7
 docutils==0.20.1

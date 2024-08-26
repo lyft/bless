@@ -105,7 +105,7 @@ class BlessUserSchema(Schema):
             raise ValidationError('Unknown field', unknown)
 
     @post_load
-    def make_bless_request(self, data):
+    def make_bless_request(self, data, **kwargs):
         return BlessUserRequest(**data)
 
     @validates('bastion_user')

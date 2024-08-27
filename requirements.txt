@@ -2,7 +2,7 @@
 attrs
 boto3
 botocore
-cffi
+cffi==1.14.2
 coverage
 cryptography==3.4.8
 docutils

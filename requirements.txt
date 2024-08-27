@@ -16,4 +16,5 @@ pycparser
 python-dateutil
 s3transfer
 six
+openssl
 urllib3

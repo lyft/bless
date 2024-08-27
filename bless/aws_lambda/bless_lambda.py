@@ -222,7 +222,7 @@ def lambda_handler(event, context=None, ca_private_key_password=None,
         schema = BlessHostSchema()
     else:
         schema = BlessUserSchema()
-    request = schema.load(event).data
+    request = schema.load(event)
 
     # cert values determined only by lambda and its configs
     current_time = int(time.time())

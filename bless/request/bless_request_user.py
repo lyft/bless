@@ -92,13 +92,13 @@ class BlessUserSchema(Schema):
     kmsauth_token = fields.Str(required=False)
 
     @validates_schema(pass_original=True)
-    def check_unknown_fields(self, data, original_data):
+    def check_unknown_fields(self, data, original_data, **kwargs):
         unknown = set(original_data) - set(self.fields)
         if unknown:
             raise ValidationError('Unknown field', unknown)
 
     @post_load
-    def make_bless_request(self, data):
+    def make_bless_request(self, data, **kwargs):
         return BlessUserRequest(**data)
 
     @validates('bastion_user')

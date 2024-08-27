@@ -4,7 +4,7 @@ boto3
 botocore
 cffi
 coverage
-cryptography
+cryptography==3.4.8
 docutils
 flake8
 iniconfig

@@ -7,7 +7,7 @@ coverage
 cryptography
 docutils
 flake8
-iniconfig=
+iniconfig
 ipaddress
 jmespath
 kmsauth

@@ -3,7 +3,7 @@
     :copyright: (c) 2016 by Netflix Inc., see AUTHORS for more
     :license: Apache, see LICENSE for more details.
 """
-import ConfigParser
+import Configparser
 
 BLESS_OPTIONS_SECTION = 'Bless Options'
 CERTIFICATE_VALIDITY_WINDOW_SEC_OPTION = 'certificate_validity_seconds'
@@ -37,7 +37,7 @@ KMSAUTH_CONTEXT_DEFAULT = None
 REGION_PASSWORD_OPTION_SUFFIX = '_password'
 
 
-class BlessConfig(ConfigParser.RawConfigParser):
+class BlessConfig(Configparser.RawConfigParser):
     def __init__(self, aws_region, config_file):
         """
         Parses the BLESS config file, and provides some reasonable default values if they are
@@ -58,7 +58,7 @@ class BlessConfig(ConfigParser.RawConfigParser):
                     CERTIFICATE_TYPE_OPTION: CERTIFICATE_TYPE_DEFAULT,
                     KMSAUTH_KEY_ID_OPTION: KMSAUTH_KEY_ID_DEFAULT,
                     KMSAUTH_CONTEXT_OPTION: KMSAUTH_CONTEXT_DEFAULT}
-        ConfigParser.RawConfigParser.__init__(self, defaults=defaults)
+        Configparser.RawConfigParser.__init__(self, defaults=defaults)
         self.read(config_file)
 
         if not self.has_section(BLESS_OPTIONS_SECTION):

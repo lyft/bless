@@ -33,7 +33,8 @@ setup(
         'pycparser',
         'python-dateutil',
         'six',
-        'kmsauth'
+        'kmsauth',
+        'Configparser'
     ],
     extras_require={
         'tests': [

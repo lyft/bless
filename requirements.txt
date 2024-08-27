@@ -16,4 +16,4 @@ pycparser
 python-dateutil
 s3transfer
 six
-urllib3
+urllib3==1.26.15
